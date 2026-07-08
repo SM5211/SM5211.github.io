@@ -3,34 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Примеры сайтов — выберите свой</title>
+<title>SMSITES — примеры сайтов</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#14161a;--ink:#eef0f2;--muted:#98a0a8;--line:#2a2e34;--accent:#e0763a}
+:root{--bg:#ffffff;--ink:#2b2620;--muted:#8a7d70;--line:#f0e3d4;
+  --accent:#e06a1f;--accent2:#d4520f;--soft:#fbe3cf}
 body{font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:var(--bg);color:var(--ink);padding:60px 6vw 80px}
-.wrap{max-width:1150px;margin:0 auto}
+  background:var(--bg);color:var(--ink);padding:56px 6vw 80px;overflow-x:hidden;position:relative}
+.deco{position:absolute;border-radius:50%;background:linear-gradient(135deg,#fbe3cf,#f7cfae);
+  opacity:.5;z-index:0;pointer-events:none}
+.wrap{max-width:1150px;margin:0 auto;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:18px;margin-bottom:44px}
+.brand svg{flex:none}
+.brand .bw{font-weight:800;font-size:34px;letter-spacing:-.5px}
+.brand .bw .sm{color:#fff;-webkit-text-stroke:2px var(--accent);paint-order:stroke}
+.brand .bw .st{background:linear-gradient(135deg,#f5964e,#d4520f);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.brand p{color:var(--muted);font-size:14px;margin-top:2px}
 h1{font-size:clamp(28px,4.5vw,44px);line-height:1.15;text-wrap:balance}
 h1 span{color:var(--accent)}
-.lead{color:var(--muted);margin:16px 0 50px;max-width:60ch;font-size:17px}
+.lead{color:var(--muted);margin:16px 0 44px;max-width:60ch;font-size:17px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
-a.card{display:block;background:#1c1f24;border:1px solid var(--line);border-radius:12px;
-  overflow:hidden;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
-a.card:hover{transform:translateY(-4px);border-color:var(--accent)}
-.thumb{height:210px;overflow:hidden;position:relative;pointer-events:none}
+a.card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;text-decoration:none;color:var(--ink);
+  box-shadow:0 4px 18px rgba(180,120,60,.08);transition:transform .15s,border-color .15s,box-shadow .15s}
+a.card:hover{transform:translateY(-4px);border-color:var(--accent);
+  box-shadow:0 10px 26px rgba(200,110,40,.16)}
+.thumb{height:210px;overflow:hidden;position:relative;pointer-events:none;background:#faf7f3}
 .thumb iframe{width:1200px;height:840px;transform:scale(.25);transform-origin:0 0;border:0;
   pointer-events:none}
 .meta{padding:18px 20px 20px}
 .meta b{font-size:18px}
 .meta p{color:var(--muted);font-size:14px;margin-top:6px}
-.tag{display:inline-block;margin-top:12px;font-size:12px;color:var(--accent);
-  border:1px solid var(--accent);border-radius:20px;padding:3px 12px}
+.tag{display:inline-block;margin-top:12px;font-size:12px;color:var(--accent2);
+  border:1px solid var(--accent);border-radius:20px;padding:3px 12px;background:#fff7ef}
 .note{margin-top:50px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);
   padding-top:24px;max-width:70ch}
+.note b{color:var(--accent2)}
 </style>
 </head>
 <body>
+<div class="deco" style="width:340px;height:340px;left:-140px;top:60%"></div>
+<div class="deco" style="width:300px;height:300px;right:-120px;top:-60px"></div>
+<div class="deco" style="width:170px;height:170px;right:-40px;top:70%"></div>
+
 <div class="wrap">
+  <div class="brand">
+    <svg width="64" height="64" viewBox="0 0 400 400" aria-label="SMSITES">
+      <defs><linearGradient id="fx" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f5964e"/><stop offset="1" stop-color="#d4520f"/>
+      </linearGradient></defs>
+      <rect width="400" height="400" rx="88" fill="url(#fx)"/>
+      <text x="200" y="212" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif"
+            font-weight="800" font-size="152" letter-spacing="-6" fill="#fff">SM</text>
+      <rect x="128" y="240" width="144" height="5" rx="2.5" fill="#fff" opacity=".45"/>
+      <text x="208" y="302" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif"
+            font-weight="600" font-size="42" letter-spacing="16" fill="#fff">SITES</text>
+    </svg>
+    <div>
+      <div class="bw"><span class="sm">SM</span><span class="st">SITES</span></div>
+      <p>Сайты и Telegram-боты для бизнеса</p>
+    </div>
+  </div>
+
   <h1>Примеры сайтов —<br>какой стиль <span>ближе вам?</span></h1>
   <p class="lead">Пять готовых макетов под разные типы бизнеса. Любой адаптируется под вас: ваше название, цвета, фотографии, цены и кнопки связи. Нажмите на карточку, чтобы посмотреть сайт целиком.</p>
 
@@ -57,7 +92,7 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent)}
     </a>
   </div>
 
-  <p class="note">Это макеты-заготовки: фотографии-заглушки заменяются на ваши, тексты и цены — под ваш бизнес. Сайт складывается за 2–3 дня, также делаю Telegram-ботов (запись, приём заказов, рассылки). Цена обсуждается от объёма работы.</p>
+  <p class="note">Это макеты-заготовки: фотографии-заглушки заменяются на ваши, тексты и цены — под ваш бизнес. <b>Сайт складывается за 2–3 дня</b>, также делаю Telegram-ботов (запись, приём заказов, рассылки). Цена обсуждается от объёма работы.</p>
 </div>
 </body>
 </html>
