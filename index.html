@@ -10,27 +10,54 @@
   --accent:#e06a1f;--accent2:#d4520f;--soft:#fbe3cf}
 body{font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   background:var(--bg);color:var(--ink);padding:56px 6vw 80px;overflow-x:hidden;position:relative}
-.deco{position:absolute;border-radius:50%;background:linear-gradient(135deg,#fbe3cf,#f7cfae);
-  opacity:.5;z-index:0;pointer-events:none}
+.deco{position:absolute;border-radius:50%;background:linear-gradient(135deg,#f7a35c,#e05f16);
+  opacity:.28;z-index:0;pointer-events:none;animation:drift 16s ease-in-out infinite alternate}
+.deco:nth-of-type(2){animation-duration:22s;animation-delay:-8s}
+.deco:nth-of-type(3){animation-duration:12s;animation-delay:-4s;opacity:.2}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(34px,-28px) scale(1.1)}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.4) rotate(-14deg)}to{opacity:1;transform:none}}
+@keyframes draw{to{transform:scaleX(1)}}
+@keyframes mv{to{transform:translateX(-100%)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,106,31,.4)}50%{box-shadow:0 0 0 9px rgba(224,106,31,0)}}
 .wrap{max-width:1150px;margin:0 auto;position:relative;z-index:1}
 .brand{display:flex;align-items:center;gap:18px;margin-bottom:44px}
-.brand svg{flex:none}
+.brand svg{flex:none;opacity:0;animation:pop .8s cubic-bezier(.2,.7,.3,1.35) forwards}
+.brand>div{opacity:0;animation:rise .8s .25s cubic-bezier(.2,.7,.3,1) forwards}
+h1{opacity:0;animation:rise .8s .45s cubic-bezier(.2,.7,.3,1) forwards}
+.lead{opacity:0;animation:rise .8s .6s cubic-bezier(.2,.7,.3,1) forwards}
+.ribbon{background:linear-gradient(90deg,#f5964e,#d4520f);color:#fff;border-radius:14px;
+  padding:13px 0;overflow:hidden;white-space:nowrap;margin:0 0 52px;font-weight:600;
+  font-size:14px;letter-spacing:.04em;opacity:0;animation:rise .8s .75s cubic-bezier(.2,.7,.3,1) forwards}
+.ribbon span{display:inline-block;padding-left:100%;animation:mv 22s linear infinite}
 .brand .bw{font-weight:800;font-size:34px;letter-spacing:-.5px}
 .brand .bw .sm{color:#fff;-webkit-text-stroke:2px var(--accent);paint-order:stroke}
 .brand .bw .st{background:linear-gradient(135deg,#f5964e,#d4520f);
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .brand p{color:var(--muted);font-size:14px;margin-top:2px}
 h1{font-size:clamp(28px,4.5vw,44px);line-height:1.15;text-wrap:balance}
-h1 span{color:var(--accent)}
+h1 span{background:linear-gradient(90deg,#f5964e,#d4520f);-webkit-background-clip:text;
+  background-clip:text;color:transparent;position:relative;display:inline-block}
+h1 span::after{content:"";position:absolute;left:0;bottom:2px;height:6px;width:100%;
+  background:linear-gradient(90deg,#f5964e,#d4520f);border-radius:3px;opacity:.3;
+  transform:scaleX(0);transform-origin:left;animation:draw .7s 1.1s cubic-bezier(.2,.7,.3,1) forwards}
 .lead{color:var(--muted);margin:16px 0 44px;max-width:60ch;font-size:17px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
-.pair{margin-bottom:46px}
+.pair{margin-bottom:46px;opacity:0;transform:translateY(34px);
+  transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.3,1)}
+.pair.in{opacity:1;transform:none}
+.pair .card{opacity:0}
+.pair.in .card{animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
+.pair.in .card.full{animation-delay:.22s}
 .pair-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 .nich{font-size:22px;font-weight:700}
 .pair-head::after{content:"";flex:1;height:1px;background:var(--line)}
 .cards.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 a.card.full{border-color:#f3c9a8}
-.tag.solid{background:linear-gradient(135deg,#f5964e,#d4520f);color:#fff;border-color:transparent}
+.tag.solid{background:linear-gradient(135deg,#f5964e,#d4520f);color:#fff;border-color:transparent;
+  animation:pulse 2.6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
+  .brand svg,.brand>div,h1,.lead,.ribbon,.pair,.pair .card{opacity:1;transform:none}}
 a.card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;
   overflow:hidden;text-decoration:none;color:var(--ink);
   box-shadow:0 4px 18px rgba(180,120,60,.08);transition:transform .15s,border-color .15s,box-shadow .15s}
@@ -43,7 +70,11 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent);
 .meta b{font-size:18px}
 .meta p{color:var(--muted);font-size:14px;margin-top:6px}
 .tag{display:inline-block;margin-top:12px;font-size:12px;color:var(--accent2);
-  border:1px solid var(--accent);border-radius:20px;padding:3px 12px;background:#fff7ef}
+  border:1px solid var(--accent);border-radius:20px;padding:3px 12px;background:#fff7ef;
+  cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.tag:hover{border-color:var(--accent2);box-shadow:0 2px 10px rgba(224,106,31,.25)}
+.tag.flip,.tag.solid.flip{animation:flip .32s ease}
+@keyframes flip{0%{transform:scaleY(1)}50%{transform:scaleY(.05)}100%{transform:scaleY(1)}}
 .note{margin-top:50px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);
   padding-top:24px;max-width:70ch}
 .note b{color:var(--accent2)}
@@ -53,6 +84,7 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent);
 <div class="deco" style="width:340px;height:340px;left:-140px;top:60%"></div>
 <div class="deco" style="width:300px;height:300px;right:-120px;top:-60px"></div>
 <div class="deco" style="width:170px;height:170px;right:-40px;top:70%"></div>
+<div class="deco" style="width:120px;height:120px;left:8%;top:8%;opacity:.15"></div>
 
 <div class="wrap">
   <div class="brand">
@@ -76,16 +108,18 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent);
   <h1>Примеры сайтов —<br>почувствуйте <span>разницу</span></h1>
   <p class="lead">Три ниши, и для каждой — два варианта: быстрый лендинг и полноценный сайт с анимациями, калькуляторами и онлайн-записью. Нажмите на карточки и сравните сами.</p>
 
+  <div class="ribbon"><span>Лендинг за 2–3 дня ✦ Полноценный сайт с анимациями за 5–7 дней ✦ Telegram-боты: запись, заказы, рассылки ✦ Цена — от объёма работы ✦ Лендинг за 2–3 дня ✦ Полноценный сайт с анимациями за 5–7 дней ✦ Telegram-боты: запись, заказы, рассылки ✦ Цена — от объёма работы ✦</span></div>
+
   <div class="pair">
     <div class="pair-head"><span class="nich">💐 Салон красоты</span></div>
     <div class="cards two">
       <a class="card" href="beauty.html" target="_blank">
         <div class="thumb"><iframe src="beauty.html" title="Салон — лендинг" loading="lazy" tabindex="-1"></iframe></div>
-        <div class="meta"><b>Лендинг</b><p>Прайс, мастера, запись в мессенджер — всё главное на одной странице</p><span class="tag">за 2–3 дня</span></div>
+        <div class="meta"><b>Лендинг</b><p>Прайс, мастера, запись в мессенджер — всё главное на одной странице</p><span class="tag" data-price="~ 500–2000 ₽ под ключ">за 2–3 дня</span></div>
       </a>
       <a class="card full" href="beauty-site.html" target="_blank">
         <div class="thumb"><iframe src="beauty-site.html" title="Салон — полноценный сайт" loading="lazy" tabindex="-1"></iframe></div>
-        <div class="meta"><b>Полноценный сайт</b><p>Анимации, живые счётчики, прайс с вкладками, отзывы-слайдер, онлайн-запись</p><span class="tag solid">✨ за 5–7 дней</span></div>
+        <div class="meta"><b>Полноценный сайт</b><p>Анимации, живые счётчики, прайс с вкладками, отзывы-слайдер, онлайн-запись</p><span class="tag solid" data-price="~ 2500–6000 ₽ под ключ">✨ за 5–7 дней</span></div>
       </a>
     </div>
   </div>
@@ -95,11 +129,11 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent);
     <div class="cards two">
       <a class="card" href="auto.html" target="_blank">
         <div class="thumb"><iframe src="auto.html" title="Автосервис — лендинг" loading="lazy" tabindex="-1"></iframe></div>
-        <div class="meta"><b>Лендинг</b><p>Услуги с ценами, этапы работы, кнопка записи</p><span class="tag">за 2–3 дня</span></div>
+        <div class="meta"><b>Лендинг</b><p>Услуги с ценами, этапы работы, кнопка записи</p><span class="tag" data-price="~ 500–2000 ₽ под ключ">за 2–3 дня</span></div>
       </a>
       <a class="card full" href="auto-site.html" target="_blank">
         <div class="thumb"><iframe src="auto-site.html" title="Автосервис — полноценный сайт" loading="lazy" tabindex="-1"></iframe></div>
-        <div class="meta"><b>Полноценный сайт</b><p>Онлайн-калькулятор стоимости, анимации, счётчики, отзывы, заявка на диагностику</p><span class="tag solid">✨ за 5–7 дней</span></div>
+        <div class="meta"><b>Полноценный сайт</b><p>Онлайн-калькулятор стоимости, анимации, счётчики, отзывы, заявка на диагностику</p><span class="tag solid" data-price="~ 2500–6000 ₽ под ключ">✨ за 5–7 дней</span></div>
       </a>
     </div>
   </div>
@@ -109,16 +143,50 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent);
     <div class="cards two">
       <a class="card" href="bakery.html" target="_blank">
         <div class="thumb"><iframe src="bakery.html" title="Пекарня — лендинг" loading="lazy" tabindex="-1"></iframe></div>
-        <div class="meta"><b>Лендинг</b><p>Витрина, «почему мы», кнопки заказа</p><span class="tag">за 2–3 дня</span></div>
+        <div class="meta"><b>Лендинг</b><p>Витрина, «почему мы», кнопки заказа</p><span class="tag" data-price="~ 500–2000 ₽ под ключ">за 2–3 дня</span></div>
       </a>
       <a class="card full" href="bakery-site.html" target="_blank">
         <div class="thumb"><iframe src="bakery-site.html" title="Пекарня — полноценный сайт" loading="lazy" tabindex="-1"></iframe></div>
-        <div class="meta"><b>Полноценный сайт</b><p>Витрина с вкладками, анимации, «как рождается хлеб» по часам, форма предзаказа</p><span class="tag solid">✨ за 5–7 дней</span></div>
+        <div class="meta"><b>Полноценный сайт</b><p>Витрина с вкладками, анимации, «как рождается хлеб» по часам, форма предзаказа</p><span class="tag solid" data-price="~ 2500–6000 ₽ под ключ">✨ за 5–7 дней</span></div>
       </a>
     </div>
   </div>
 
   <p class="note">Это макеты-заготовки: фотографии-заглушки заменяются на ваши, тексты и цены — под ваш бизнес. <b>Лендинг — за 2–3 дня, полноценный многостраничный сайт с анимациями — за 5–7 дней.</b> Также делаю Telegram-ботов (запись, приём заказов, рассылки). Цена обсуждается от объёма работы.</p>
 </div>
+<script>
+"use strict";
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+}), {threshold: .12});
+document.querySelectorAll(".pair").forEach(el => io.observe(el));
+
+// тег: на ПК цена показывается при наведении, на телефоне — по тапу
+const canHover = matchMedia("(hover: hover)").matches;
+function setTag(t, price){
+  if(t.classList.contains("price-on") === price) return;
+  t.classList.toggle("price-on", price);
+  t.classList.add("flip");
+  setTimeout(() => { t.textContent = price ? t.dataset.price : t.dataset.days; }, 150);
+}
+document.querySelectorAll(".tag").forEach(t => {
+  t.dataset.days = t.textContent;
+  t.setAttribute("role", "button");
+  t.tabIndex = 0;
+  t.addEventListener("animationend", e => { if(e.animationName === "flip") t.classList.remove("flip"); });
+  if(canHover){
+    t.addEventListener("mouseenter", () => setTag(t, true));
+    t.addEventListener("mouseleave", () => setTag(t, false));
+    t.addEventListener("focus", () => setTag(t, true));
+    t.addEventListener("blur", () => setTag(t, false));
+  }
+});
+document.addEventListener("click", e => {
+  const t = e.target.closest(".tag");
+  if(!t) return;
+  e.preventDefault(); // не открывать карточку при клике по тегу
+  if(!canHover) setTag(t, !t.classList.contains("price-on"));
+});
+</script>
 </body>
 </html>
