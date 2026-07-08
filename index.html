@@ -73,7 +73,8 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent);
   border:1px solid var(--accent);border-radius:20px;padding:3px 12px;background:#fff7ef;
   cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .tag:hover{border-color:var(--accent2);box-shadow:0 2px 10px rgba(224,106,31,.25)}
-.tag.flip,.tag.solid.flip{animation:flip .32s ease}
+.tag .txt{display:inline-block;pointer-events:none}
+.tag .txt.flip{animation:flip .32s ease}
 @keyframes flip{0%{transform:scaleY(1)}50%{transform:scaleY(.05)}100%{transform:scaleY(1)}}
 .note{margin-top:50px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);
   padding-top:24px;max-width:70ch}
@@ -166,14 +167,24 @@ const canHover = matchMedia("(hover: hover)").matches;
 function setTag(t, price){
   if(t.classList.contains("price-on") === price) return;
   t.classList.toggle("price-on", price);
-  t.classList.add("flip");
-  setTimeout(() => { t.textContent = price ? t.dataset.price : t.dataset.days; }, 150);
+  const s = t.firstElementChild;
+  s.classList.remove("flip");
+  void s.offsetWidth; // перезапуск анимации
+  s.classList.add("flip");
+  setTimeout(() => { s.textContent = price ? t.dataset.price : t.dataset.days; }, 150);
 }
 document.querySelectorAll(".tag").forEach(t => {
   t.dataset.days = t.textContent;
+  // текст живёт во вложенном span: анимируется он, а рамка тега неподвижна —
+  // иначе схлопывание "уводит" тег из-под курсора и hover зацикливается
+  const s = document.createElement("span");
+  s.className = "txt";
+  s.textContent = t.textContent;
+  t.textContent = "";
+  t.appendChild(s);
   t.setAttribute("role", "button");
   t.tabIndex = 0;
-  t.addEventListener("animationend", e => { if(e.animationName === "flip") t.classList.remove("flip"); });
+  s.addEventListener("animationend", () => s.classList.remove("flip"));
   if(canHover){
     t.addEventListener("mouseenter", () => setTag(t, true));
     t.addEventListener("mouseleave", () => setTag(t, false));
