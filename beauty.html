@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Салон красоты — пример сайта</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf7f5;--ink:#332e2b;--accent:#9d6b53;--soft:#f0e6e0;--muted:#96897f}
+body{font:16px/1.65 "Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+nav{position:sticky;top:0;background:rgba(250,247,245,.96);display:flex;
+  justify-content:space-between;align-items:center;padding:16px 6vw;z-index:10;
+  border-bottom:1px solid var(--soft)}
+nav b{font-size:15px;letter-spacing:.35em;text-transform:uppercase;font-weight:600}
+nav a{color:var(--ink);text-decoration:none;margin-left:24px;font-size:14px;letter-spacing:.02em}
+nav a:hover{color:var(--accent)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;min-height:78vh}
+.hero-text{display:flex;flex-direction:column;justify-content:center;padding:60px 8vw}
+.hero-text h1{font-size:clamp(36px,5vw,58px);font-weight:300;line-height:1.15;letter-spacing:.01em}
+.hero-text h1 em{font-style:italic;color:var(--accent)}
+.hero-text p{margin-top:22px;color:var(--muted);max-width:44ch}
+.hero-img{background:linear-gradient(160deg,#e9d7cc,#d9bfae 55%,#c9a894);
+  display:flex;align-items:center;justify-content:center;font-size:110px}
+.btn{display:inline-block;margin-top:34px;background:var(--ink);color:#fff;padding:15px 38px;
+  text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;width:max-content}
+.btn:hover{background:var(--accent)}
+section{padding:80px 8vw;max-width:1050px;margin:0 auto}
+h2{font-size:13px;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+h3.big{font-size:34px;font-weight:300;margin-bottom:44px}
+.price li{display:flex;justify-content:space-between;align-items:baseline;list-style:none;
+  padding:15px 0;border-bottom:1px solid var(--soft);gap:20px}
+.price li small{color:var(--muted);display:block;font-size:14px}
+.price li b{font-weight:500;white-space:nowrap}
+.masters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px}
+.master{text-align:center}
+.master .ava{width:130px;height:130px;border-radius:50%;margin:0 auto 14px;
+  display:flex;align-items:center;justify-content:center;font-size:52px}
+.master:nth-child(1) .ava{background:#ecdcd2}
+.master:nth-child(2) .ava{background:#e5d2c4}
+.master:nth-child(3) .ava{background:#ddc7b6}
+.master p{color:var(--muted);font-size:14px}
+.cta{background:var(--ink);color:#e9ddd5;text-align:center;padding:80px 8vw}
+.cta h3{font-size:30px;font-weight:300;margin-bottom:12px;color:#fff}
+.cta p{color:#b5a89e}
+.cta .row{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta a{color:#fff;border:1px solid #6d6058;padding:13px 30px;text-decoration:none;
+  font-size:13px;letter-spacing:.15em;text-transform:uppercase}
+.cta a:hover{background:var(--accent);border-color:var(--accent)}
+footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-img{min-height:38vh}}
+</style>
+</head>
+<body>
+<nav><b>Салон</b><div><a href="#price">Услуги</a><a href="#team">Мастера</a><a href="#book">Запись</a></div></nav>
+
+<div class="hero">
+  <div class="hero-text">
+    <h1>Красота начинается<br>с <em>заботы о себе</em></h1>
+    <p>Стрижки, окрашивание, маникюр и уход — мастера с опытом от 5 лет и косметика профессиональных марок.</p>
+    <a class="btn" href="#book">Записаться</a>
+  </div>
+  <div class="hero-img">💐</div>
+</div>
+
+<section id="price">
+  <h2>Прайс</h2>
+  <h3 class="big">Услуги и цены</h3>
+  <ul class="price">
+    <li><span>Женская стрижка<small>мытьё, стрижка, укладка</small></span><b>от 1 500 ₽</b></li>
+    <li><span>Окрашивание в один тон<small>краситель премиум-класса</small></span><b>от 3 500 ₽</b></li>
+    <li><span>Сложное окрашивание<small>шатуш, балаяж, airtouch</small></span><b>от 6 000 ₽</b></li>
+    <li><span>Маникюр с покрытием<small>гель-лак, укрепление</small></span><b>от 1 800 ₽</b></li>
+    <li><span>Уход для волос<small>восстановление, ботокс, кератин</small></span><b>от 2 500 ₽</b></li>
+    <li><span>Брови<small>коррекция и окрашивание</small></span><b>от 900 ₽</b></li>
+  </ul>
+</section>
+
+<section id="team">
+  <h2>Команда</h2>
+  <h3 class="big">Ваши мастера</h3>
+  <div class="masters">
+    <div class="master"><div class="ava">✂️</div><b>Стилист-колорист</b><p>опыт 8 лет, ежегодные стажировки</p></div>
+    <div class="master"><div class="ava">💅</div><b>Мастер маникюра</b><p>аккуратно, стерильно, вовремя</p></div>
+    <div class="master"><div class="ava">🌿</div><b>Косметолог</b><p>уходы и восстановление кожи</p></div>
+  </div>
+</section>
+
+<div class="cta" id="book">
+  <h3>Запишитесь на удобное время</h3>
+  <p>Ответим в мессенджере в течение 10 минут · ул. Примерная, 1</p>
+  <div class="row">
+    <a href="tel:+70000000000">Позвонить</a><a href="#">WhatsApp</a><a href="#">Telegram</a>
+  </div>
+</div>
+<footer>Шаблон одностраничного сайта · цвета, фото и прайс адаптируются под ваш салон</footer>
+</body>
+</html>

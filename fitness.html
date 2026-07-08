@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Фитнес-студия — пример сайта</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#111214;--panel:#1a1c1f;--ink:#f2f3f4;--accent:#d7fb3f;--muted:#8b9096;--line:#2a2d31}
+body{font:16px/1.6 "Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+nav{position:sticky;top:0;background:rgba(17,18,20,.95);display:flex;justify-content:space-between;
+  align-items:center;padding:16px 6vw;z-index:10;border-bottom:1px solid var(--line)}
+nav b{font-size:18px;font-style:italic;letter-spacing:.05em}
+nav b i{color:var(--accent)}
+nav a{color:var(--ink);text-decoration:none;margin-left:24px;font-size:14px;text-transform:uppercase;letter-spacing:.08em}
+nav a:hover{color:var(--accent)}
+.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:0 6vw;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(215,251,63,.13), transparent 40%),
+    repeating-linear-gradient(-45deg, transparent 0 60px, rgba(255,255,255,.015) 60px 61px)}
+.hero h1{font-size:clamp(48px,10vw,110px);line-height:.95;text-transform:uppercase;
+  font-weight:800;font-style:italic}
+.hero h1 span{color:var(--accent)}
+.hero p{margin-top:24px;color:var(--muted);max-width:46ch;font-size:18px}
+.btn{display:inline-block;width:max-content;margin-top:34px;background:var(--accent);color:#111;
+  padding:16px 42px;text-decoration:none;font-weight:700;text-transform:uppercase;
+  letter-spacing:.1em;font-size:14px;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.btn:hover{filter:brightness(1.1)}
+section{padding:80px 6vw;max-width:1100px;margin:0 auto}
+h2{font-size:32px;text-transform:uppercase;font-style:italic;font-weight:800;margin-bottom:36px}
+h2 i{color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:28px}
+.card .em{font-size:40px}
+.card h3{margin:14px 0 8px;text-transform:uppercase;font-size:17px}
+.card p{color:var(--muted);font-size:15px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:13px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+th{color:var(--muted);text-transform:uppercase;font-size:12px;letter-spacing:.1em}
+td b{color:var(--accent)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.plan{background:var(--panel);border:1px solid var(--line);padding:30px;text-align:center}
+.plan.hit{border-color:var(--accent)}
+.plan .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.plan h3{font-size:19px;text-transform:uppercase;margin:8px 0}
+.plan .price{font-size:38px;font-weight:800;margin:14px 0}
+.plan .price small{font-size:15px;color:var(--muted);font-weight:400}
+.plan ul{list-style:none;color:var(--muted);font-size:14px;line-height:2}
+.cta{background:var(--accent);color:#111;text-align:center;padding:70px 6vw}
+.cta h2{color:#111;margin-bottom:10px}
+.cta .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.cta a{border:2px solid #111;color:#111;padding:13px 30px;text-decoration:none;
+  font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.08em}
+.cta a:hover{background:#111;color:var(--accent)}
+footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<nav><b>FIT<i>STUDIO</i></b><div><a href="#dir">Направления</a><a href="#time">Расписание</a><a href="#price">Абонементы</a></div></nav>
+
+<div class="hero">
+  <h1>Сильнее<br><span>каждый день</span></h1>
+  <p>Групповые и персональные тренировки рядом с домом. Первое занятие — бесплатно.</p>
+  <a class="btn" href="#price">Начать сейчас</a>
+</div>
+
+<section id="dir">
+  <h2>Направления<i>.</i></h2>
+  <div class="grid">
+    <div class="card"><div class="em">🏋️</div><h3>Силовые</h3><p>Тренажёрный зал с инструктором, программы под цель.</p></div>
+    <div class="card"><div class="em">🥊</div><h3>Единоборства</h3><p>Бокс и кикбоксинг для любого уровня подготовки.</p></div>
+    <div class="card"><div class="em">🧘</div><h3>Йога и стретчинг</h3><p>Гибкость, осанка и восстановление после нагрузок.</p></div>
+    <div class="card"><div class="em">💃</div><h3>Танцы</h3><p>High heels, hip-hop и латина — с нуля до сцены.</p></div>
+  </div>
+</section>
+
+<section id="time">
+  <h2>Расписание<i>.</i></h2>
+  <table>
+    <tr><th>Время</th><th>Пн / Ср / Пт</th><th>Вт / Чт</th><th>Сб</th></tr>
+    <tr><td>08:00</td><td>Силовая</td><td>Йога</td><td>—</td></tr>
+    <tr><td>12:00</td><td>Стретчинг</td><td>Силовая</td><td><b>Открытая тренировка</b></td></tr>
+    <tr><td>18:00</td><td>Бокс</td><td>Танцы</td><td>Йога</td></tr>
+    <tr><td>20:00</td><td>Танцы</td><td>Бокс</td><td>—</td></tr>
+  </table>
+</section>
+
+<section id="price">
+  <h2>Абонементы<i>.</i></h2>
+  <div class="plans">
+    <div class="plan"><h3>Разовое</h3><div class="price">500 ₽</div><ul><li>любое занятие</li><li>без обязательств</li></ul></div>
+    <div class="plan hit"><div class="tag">Хит</div><h3>Безлимит</h3><div class="price">3 900 ₽<small>/мес</small></div><ul><li>все направления</li><li>заморозка 14 дней</li><li>гостевой визит для друга</li></ul></div>
+    <div class="plan"><h3>Персональные</h3><div class="price">от 1 500 ₽</div><ul><li>индивидуальная программа</li><li>удобное время</li></ul></div>
+  </div>
+</section>
+
+<div class="cta">
+  <h2>Первая тренировка — бесплатно</h2>
+  <p>Напиши нам, подберём направление и время под тебя</p>
+  <div class="row"><a href="tel:+70000000000">Позвонить</a><a href="#">Telegram</a><a href="#">VK</a></div>
+</div>
+<footer>Шаблон одностраничного сайта · направления, расписание и цены адаптируются под вашу студию</footer>
+</body>
+</html>

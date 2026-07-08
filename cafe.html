@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кафе — пример сайта</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fdf9f3;--ink:#2d2419;--accent:#c05621;--soft:#f4e8d8;--muted:#8c7a63}
+body{font:16px/1.6 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+nav{position:sticky;top:0;background:rgba(253,249,243,.95);backdrop-filter:blur(6px);
+  display:flex;justify-content:space-between;align-items:center;padding:14px 6vw;
+  border-bottom:1px solid var(--soft);z-index:10}
+nav b{font-size:20px;letter-spacing:.04em}
+nav div a{color:var(--ink);text-decoration:none;margin-left:22px;font-size:15px}
+nav div a:hover{color:var(--accent)}
+.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;text-align:center;padding:40px 6vw;
+  background:radial-gradient(ellipse at 30% 20%, #f7ead6 0%, var(--bg) 60%)}
+.hero small{text-transform:uppercase;letter-spacing:.3em;color:var(--accent);font-size:13px}
+.hero h1{font-size:clamp(42px,8vw,84px);font-weight:400;margin:14px 0}
+.hero p{max-width:52ch;color:var(--muted);font-size:18px}
+.btn{display:inline-block;margin-top:30px;background:var(--accent);color:#fff;
+  padding:14px 34px;border-radius:2px;text-decoration:none;font-size:15px;
+  letter-spacing:.06em;text-transform:uppercase}
+.btn:hover{background:#a34517}
+section{padding:70px 6vw;max-width:1100px;margin:0 auto}
+h2{font-size:34px;font-weight:400;margin-bottom:8px}
+.sub{color:var(--muted);margin-bottom:40px}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 44px}
+.dish{display:flex;justify-content:space-between;gap:14px;padding:13px 0;
+  border-bottom:1px dotted #d8c8b0}
+.dish span:last-child{color:var(--accent);white-space:nowrap}
+.dish small{display:block;color:var(--muted)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.ph{aspect-ratio:4/3;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  font-size:54px}
+.ph:nth-child(1){background:linear-gradient(135deg,#e8d5b7,#d9b98c)}
+.ph:nth-child(2){background:linear-gradient(135deg,#dcc9a8,#c9a97a)}
+.ph:nth-child(3){background:linear-gradient(135deg,#efe0c8,#d9c39a)}
+.ph:nth-child(4){background:linear-gradient(135deg,#e2cfae,#cdb083)}
+.quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+blockquote{background:var(--soft);padding:24px;border-radius:4px;font-style:italic}
+blockquote footer{margin-top:12px;font-style:normal;color:var(--muted);font-size:14px}
+.contact{background:var(--ink);color:#f4e8d8;text-align:center;padding:70px 6vw}
+.contact h2{color:#fff}
+.contact p{margin:6px 0;color:#cbb underline}
+.contact a{color:#f4b06a;text-decoration:none;font-size:20px}
+.row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.row a{border:1px solid #6b5a42;padding:12px 26px;border-radius:2px;font-size:15px}
+.row a:hover{background:#3d3223}
+footer.site{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:600px){nav div a{margin-left:12px;font-size:13px}}
+</style>
+</head>
+<body>
+<nav><b>КАФЕ</b><div><a href="#menu">Меню</a><a href="#about">О нас</a><a href="#contact">Контакты</a></div></nav>
+
+<div class="hero">
+  <small>Кофе · Завтраки · Десерты</small>
+  <h1>Место, куда хочется вернуться</h1>
+  <p>Свежая выпечка каждое утро, кофе из свежеобжаренных зёрен и завтраки, ради которых стоит проснуться пораньше.</p>
+  <a class="btn" href="#menu">Смотреть меню</a>
+</div>
+
+<section id="menu">
+  <h2>Меню</h2>
+  <p class="sub">Готовим из локальных продуктов, обновляем меню каждый сезон</p>
+  <div class="menu">
+    <div class="dish"><span>Капучино<small>классический, на молоке или альтернативе</small></span><span>190 ₽</span></div>
+    <div class="dish"><span>Сырники со сметаной<small>подаём с домашним вареньем</small></span><span>320 ₽</span></div>
+    <div class="dish"><span>Круассан с лососем<small>сливочный сыр, огурец, микрозелень</small></span><span>390 ₽</span></div>
+    <div class="dish"><span>Боул с курицей<small>киноа, овощи, соус тахини</small></span><span>430 ₽</span></div>
+    <div class="dish"><span>Тыквенный суп<small>с тыквенными семечками и сливками</small></span><span>290 ₽</span></div>
+    <div class="dish"><span>Чизкейк<small>классический, готовим сами</small></span><span>280 ₽</span></div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>Атмосфера</h2>
+  <p class="sub">Здесь будут фотографии вашего заведения</p>
+  <div class="gallery">
+    <div class="ph">☕</div><div class="ph">🥐</div><div class="ph">🍰</div><div class="ph">🪴</div>
+  </div>
+</section>
+
+<section>
+  <h2>Отзывы гостей</h2>
+  <p class="sub">Живые отзывы подключаются с Яндекс.Карт или 2ГИС</p>
+  <div class="quotes">
+    <blockquote>«Лучший кофе в районе, приходим всей семьёй каждые выходные».<footer>— Анна</footer></blockquote>
+    <blockquote>«Уютно, вкусно, быстрый Wi-Fi. Идеально для работы днём».<footer>— Дмитрий</footer></blockquote>
+    <blockquote>«Сырники — 10/10. Персонал очень приветливый».<footer>— Мария</footer></blockquote>
+  </div>
+</section>
+
+<div class="contact" id="contact">
+  <h2>Ждём вас</h2>
+  <p style="margin-top:18px">Ежедневно 8:00 — 22:00</p>
+  <p>ул. Примерная, 1 · вход с улицы</p>
+  <p style="margin-top:14px"><a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
+  <div class="row">
+    <a href="#">Позвонить</a><a href="#">Написать в Telegram</a><a href="#">Построить маршрут</a>
+  </div>
+</div>
+<footer class="site">Шаблон одностраничного сайта · дизайн и наполнение адаптируются под ваше заведение</footer>
+</body>
+</html>
