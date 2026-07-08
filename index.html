@@ -24,6 +24,13 @@ h1{font-size:clamp(28px,4.5vw,44px);line-height:1.15;text-wrap:balance}
 h1 span{color:var(--accent)}
 .lead{color:var(--muted);margin:16px 0 44px;max-width:60ch;font-size:17px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.pair{margin-bottom:46px}
+.pair-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.nich{font-size:22px;font-weight:700}
+.pair-head::after{content:"";flex:1;height:1px;background:var(--line)}
+.cards.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+a.card.full{border-color:#f3c9a8}
+.tag.solid{background:linear-gradient(135deg,#f5964e,#d4520f);color:#fff;border-color:transparent}
 a.card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;
   overflow:hidden;text-decoration:none;color:var(--ink);
   box-shadow:0 4px 18px rgba(180,120,60,.08);transition:transform .15s,border-color .15s,box-shadow .15s}
@@ -66,30 +73,49 @@ a.card:hover{transform:translateY(-4px);border-color:var(--accent);
     </div>
   </div>
 
-  <h1>Примеры сайтов —<br>какой стиль <span>ближе вам?</span></h1>
-  <p class="lead">Пять готовых макетов под разные типы бизнеса. Любой адаптируется под вас: ваше название, цвета, фотографии, цены и кнопки связи. Нажмите на карточку, чтобы посмотреть сайт целиком.</p>
+  <h1>Примеры сайтов —<br>почувствуйте <span>разницу</span></h1>
+  <p class="lead">Три ниши, и для каждой — два варианта: быстрый лендинг и полноценный сайт с анимациями, калькуляторами и онлайн-записью. Нажмите на карточки и сравните сами.</p>
 
-  <div class="cards">
-    <a class="card" href="cafe.html" target="_blank">
-      <div class="thumb"><iframe src="cafe.html" title="Кафе" loading="lazy" tabindex="-1"></iframe></div>
-      <div class="meta"><b>Кафе / ресторан</b><p>Тёплый стиль, меню с ценами, галерея, отзывы гостей</p><span class="tag">классика</span></div>
-    </a>
-    <a class="card" href="beauty.html" target="_blank">
-      <div class="thumb"><iframe src="beauty.html" title="Салон красоты" loading="lazy" tabindex="-1"></iframe></div>
-      <div class="meta"><b>Салон красоты</b><p>Элегантный минимализм, прайс, мастера, запись в мессенджер</p><span class="tag">нежный</span></div>
-    </a>
-    <a class="card" href="fitness.html" target="_blank">
-      <div class="thumb"><iframe src="fitness.html" title="Фитнес" loading="lazy" tabindex="-1"></iframe></div>
-      <div class="meta"><b>Фитнес / танцы</b><p>Дерзкий тёмный стиль, расписание, абонементы</p><span class="tag">энергия</span></div>
-    </a>
-    <a class="card" href="auto.html" target="_blank">
-      <div class="thumb"><iframe src="auto.html" title="Автосервис" loading="lazy" tabindex="-1"></iframe></div>
-      <div class="meta"><b>Автосервис</b><p>Строгий деловой стиль, услуги с ценами, этапы работы</p><span class="tag">надёжный</span></div>
-    </a>
-    <a class="card" href="bakery.html" target="_blank">
-      <div class="thumb"><iframe src="bakery.html" title="Пекарня" loading="lazy" tabindex="-1"></iframe></div>
-      <div class="meta"><b>Пекарня / магазин</b><p>Уютный светлый стиль, витрина товаров, заказ к утру</p><span class="tag">уютный</span></div>
-    </a>
+  <div class="pair">
+    <div class="pair-head"><span class="nich">💐 Салон красоты</span></div>
+    <div class="cards two">
+      <a class="card" href="beauty.html" target="_blank">
+        <div class="thumb"><iframe src="beauty.html" title="Салон — лендинг" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="meta"><b>Лендинг</b><p>Прайс, мастера, запись в мессенджер — всё главное на одной странице</p><span class="tag">за 2–3 дня</span></div>
+      </a>
+      <a class="card full" href="beauty-site.html" target="_blank">
+        <div class="thumb"><iframe src="beauty-site.html" title="Салон — полноценный сайт" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="meta"><b>Полноценный сайт</b><p>Анимации, живые счётчики, прайс с вкладками, отзывы-слайдер, онлайн-запись</p><span class="tag solid">✨ за 5–7 дней</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div class="pair-head"><span class="nich">🔧 Автосервис</span></div>
+    <div class="cards two">
+      <a class="card" href="auto.html" target="_blank">
+        <div class="thumb"><iframe src="auto.html" title="Автосервис — лендинг" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="meta"><b>Лендинг</b><p>Услуги с ценами, этапы работы, кнопка записи</p><span class="tag">за 2–3 дня</span></div>
+      </a>
+      <a class="card full" href="auto-site.html" target="_blank">
+        <div class="thumb"><iframe src="auto-site.html" title="Автосервис — полноценный сайт" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="meta"><b>Полноценный сайт</b><p>Онлайн-калькулятор стоимости, анимации, счётчики, отзывы, заявка на диагностику</p><span class="tag solid">✨ за 5–7 дней</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div class="pair-head"><span class="nich">🥖 Пекарня</span></div>
+    <div class="cards two">
+      <a class="card" href="bakery.html" target="_blank">
+        <div class="thumb"><iframe src="bakery.html" title="Пекарня — лендинг" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="meta"><b>Лендинг</b><p>Витрина, «почему мы», кнопки заказа</p><span class="tag">за 2–3 дня</span></div>
+      </a>
+      <a class="card full" href="bakery-site.html" target="_blank">
+        <div class="thumb"><iframe src="bakery-site.html" title="Пекарня — полноценный сайт" loading="lazy" tabindex="-1"></iframe></div>
+        <div class="meta"><b>Полноценный сайт</b><p>Витрина с вкладками, анимации, «как рождается хлеб» по часам, форма предзаказа</p><span class="tag solid">✨ за 5–7 дней</span></div>
+      </a>
+    </div>
   </div>
 
   <p class="note">Это макеты-заготовки: фотографии-заглушки заменяются на ваши, тексты и цены — под ваш бизнес. <b>Лендинг — за 2–3 дня, полноценный многостраничный сайт с анимациями — за 5–7 дней.</b> Также делаю Telegram-ботов (запись, приём заказов, рассылки). Цена обсуждается от объёма работы.</p>

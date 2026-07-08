@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пекарня — пример полноценного сайта</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fffdf7;--ink:#3d2f1e;--accent:#b98237;--accent2:#d89b45;--soft:#f7edd9;--muted:#9a8668;--card:#fff}
+html{scroll-behavior:smooth}
+body{font:16px/1.65 Verdana,Geneva,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden}
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;z-index:100}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
+  padding:15px 6vw;z-index:50;transition:.3s}
+nav.scrolled{background:rgba(255,253,247,.97);backdrop-filter:blur(8px);padding:11px 6vw;border-bottom:2px dashed var(--soft)}
+nav b{font-size:18px}
+nav .links a{color:var(--ink);text-decoration:none;margin-left:20px;font-size:14px;opacity:.75;transition:.2s}
+nav .links a:hover,nav .links a.active{opacity:1;color:var(--accent)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:80px 6vw 40px;position:relative;
+  background:radial-gradient(circle at 50% 0%, #fbf3e2, var(--bg) 70%)}
+.hero>*{opacity:0;transform:translateY(24px);animation:up .9s cubic-bezier(.2,.7,.3,1) forwards}
+.hero .em{font-size:76px;animation-delay:.05s}
+.hero h1{font-size:clamp(34px,6vw,62px);margin:16px 0 12px;line-height:1.15;animation-delay:.25s}
+.hero p{color:var(--muted);max-width:52ch;font-size:17px;animation-delay:.45s}
+.hero .cta{animation-delay:.65s;margin-top:28px}
+@keyframes up{to{opacity:1;transform:none}}
+.btn{display:inline-block;background:var(--accent);color:#fff;padding:14px 36px;border-radius:40px;
+  text-decoration:none;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:.25s}
+.btn:hover{background:#9c6c2a;transform:translateY(-2px)}
+.marquee{background:var(--ink);color:#f3e5c8;padding:13px 0;overflow:hidden;white-space:nowrap;font-size:14px}
+.marquee span{display:inline-block;padding-left:100%;animation:mv 22s linear infinite}
+@keyframes mv{to{transform:translateX(-100%)}}
+section{padding:90px 6vw;max-width:1050px;margin:0 auto}
+h2{font-size:30px;margin-bottom:8px;text-align:center}
+.sub{color:var(--muted);text-align:center;margin-bottom:40px}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;text-align:center}
+.stat{background:var(--card);border:1px solid #efe3cb;border-radius:16px;padding:26px 12px;
+  box-shadow:0 4px 14px rgba(150,120,60,.07)}
+.stat b{font-size:40px;color:var(--accent);display:block;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.tabs{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;justify-content:center}
+.tabs button{background:var(--card);border:1px solid #efe3cb;color:var(--muted);padding:10px 24px;border-radius:24px;
+  cursor:pointer;font:inherit;font-size:14px;transition:.25s}
+.tabs button.on{border-color:var(--accent);color:var(--accent);font-weight:700}
+.goods{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px}
+.good{background:var(--card);border:1px solid #efe3cb;border-radius:16px;padding:24px;text-align:center;
+  box-shadow:0 4px 14px rgba(150,120,60,.07);opacity:0;transform:translateY(16px) scale(.97);
+  animation:pop .5s cubic-bezier(.2,.7,.3,1.2) forwards;transition:transform .25s}
+.good:hover{transform:translateY(-5px)}
+@keyframes pop{to{opacity:1;transform:none}}
+.good .em{font-size:44px;display:inline-block;transition:transform .3s}
+.good:hover .em{transform:scale(1.2) rotate(-8deg)}
+.good b{display:block;margin:12px 0 4px;font-size:16px}
+.good p{color:var(--muted);font-size:13.5px;min-height:40px}
+.good .pr{margin-top:10px;font-weight:700;color:var(--accent);font-size:17px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;text-align:center}
+.how div{padding:22px}
+.how .em{font-size:40px}
+.how b{display:block;margin:12px 0 6px}
+.how p{color:var(--muted);font-size:14px}
+.how time{display:inline-block;background:var(--soft);border-radius:20px;padding:2px 14px;font-size:13px;
+  color:var(--accent);margin-bottom:10px;font-weight:700}
+.quotes{position:relative;min-height:140px}
+.quote{position:absolute;inset:0;opacity:0;transition:opacity .8s;text-align:center;padding:0 6vw}
+.quote.on{opacity:1}
+.quote p{font-size:21px;font-style:italic}
+.quote footer{margin-top:14px;color:var(--accent);font-size:13px;font-weight:700}
+.dots{display:flex;gap:10px;justify-content:center;margin-top:22px}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--accent);background:none;cursor:pointer;padding:0}
+.dots button.on{background:var(--accent)}
+.order{background:var(--soft);border-radius:26px;padding:52px 6vw;text-align:center;margin:0 6vw 80px}
+.order h2{margin-bottom:8px}
+.order p{color:var(--muted)}
+.order form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.order input{background:#fff;border:1px solid #e3d3b3;border-radius:40px;padding:13px 22px;font:inherit;
+  font-size:15px;min-width:220px}
+.order input:focus{outline:none;border-color:var(--accent)}
+footer.site{padding:34px;text-align:center;color:var(--muted);font-size:13.5px;border-top:2px dashed var(--soft)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}
+  .good{opacity:1;transform:none}.marquee span{animation:none;padding-left:2vw}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav id="nav"><b>🥨 Пекарня</b><div class="links">
+  <a href="#goods">Витрина</a><a href="#how">Как печём</a><a href="#order">Предзаказ</a>
+</div></nav>
+
+<div class="hero">
+  <div class="em">🥖</div>
+  <h1>Хлеб, который пахнет детством</h1>
+  <p>Печём на закваске каждое утро с 5 часов. К обеду — свежая партия багетов, к вечеру — пироги по домашним рецептам.</p>
+  <div class="cta"><a class="btn" href="#order">Заказать к утру</a></div>
+</div>
+
+<div class="marquee"><span>Свежая выпечка каждый день · Торты на заказ · Без разрыхлителей и маргарина · Кофе с собой · Свежая выпечка каждый день · Торты на заказ · Без разрыхлителей и маргарина · Кофе с собой</span></div>
+
+<section>
+  <h2 class="reveal">Пекарня в цифрах</h2>
+  <p class="sub reveal">Мы маленькие, но нас любят</p>
+  <div class="stats reveal">
+    <div class="stat"><b data-n="5">0</b><span>лет печём для вас</span></div>
+    <div class="stat"><b data-n="27">0</b><span>видов выпечки</span></div>
+    <div class="stat"><b data-n="300">0</b><span>булок каждое утро</span></div>
+    <div class="stat"><b data-n="480">0</b><span>тортов на заказ в год</span></div>
+  </div>
+</section>
+
+<section id="goods">
+  <h2 class="reveal">Витрина</h2>
+  <p class="sub reveal">Выберите категорию — фотографии заменяются на снимки вашей продукции</p>
+  <div class="tabs reveal" id="tabs">
+    <button class="on" data-t="bread">Хлеб</button>
+    <button data-t="pastry">Выпечка</button>
+    <button data-t="cakes">Торты</button>
+  </div>
+  <div class="goods" id="goods-grid"></div>
+</section>
+
+<section id="how">
+  <h2 class="reveal">Как рождается хлеб</h2>
+  <p class="sub reveal">Один день нашей пекарни</p>
+  <div class="how reveal">
+    <div><time>05:00</time><div class="em">🌾</div><b>Замес</b><p>Закваска, мука, вода и соль — ничего лишнего</p></div>
+    <div><time>07:30</time><div class="em">🔥</div><b>Первая выпечка</b><p>Багеты и чиабатты к вашему завтраку</p></div>
+    <div><time>12:00</time><div class="em">🥧</div><b>Пироги</b><p>Начинки по сезону: от вишни до белых грибов</p></div>
+    <div><time>17:00</time><div class="em">🎂</div><b>Торты на заказ</b><p>Собираем и украшаем к вашему празднику</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Отзывы</h2>
+  <p class="sub reveal">Наши постоянные — лучшая реклама</p>
+  <div class="quotes reveal" id="quotes">
+    <div class="quote on"><p>«Беру их бородинский уже три года. В супермаркете хлеб больше не покупаю»</p><footer>— Наталья</footer></div>
+    <div class="quote"><p>«Торт на день рождения дочки — гости выпрашивали контакт пекарни»</p><footer>— Айрат</footer></div>
+    <div class="quote"><p>«Круассаны как в Париже, только тёплые и в два раза дешевле»</p><footer>— Олеся</footer></div>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<div class="order" id="order">
+  <h2>Закажите к утру</h2>
+  <p>Напишите до 20:00 — испечём к вашему завтраку · ул. Примерная, 1 · 7:00–21:00</p>
+  <form onsubmit="event.preventDefault();this.innerHTML='<p style=\'font-size:20px\'>Спасибо! Подтвердим заказ в мессенджере в течение 10 минут 🥐</p>'">
+    <input required placeholder="Что испечь? Например: 2 багета">
+    <input required type="tel" placeholder="Телефон">
+    <button class="btn" type="submit">Отправить предзаказ</button>
+  </form>
+</div>
+
+<footer class="site">Пример полноценного сайта с анимациями · ассортимент и цены адаптируются под вашу пекарню</footer>
+
+<script>
+"use strict";
+const prog = document.getElementById("progress");
+addEventListener("scroll", () => {
+  const h = document.documentElement;
+  prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+  document.getElementById("nav").classList.toggle("scrolled", h.scrollTop > 40);
+}, {passive: true});
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+}), {threshold: .15});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+const cio = new IntersectionObserver(es => es.forEach(e => {
+  if(!e.isIntersecting) return;
+  cio.unobserve(e.target);
+  const el = e.target, n = +el.dataset.n, t0 = performance.now();
+  const tick = t => { const p = Math.min((t - t0) / 1400, 1);
+    el.textContent = Math.round(n * (1 - Math.pow(1 - p, 3)));
+    if(p < 1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+}), {threshold: .6});
+document.querySelectorAll(".stat b").forEach(el => cio.observe(el));
+
+const GOODS = {
+  bread: [["🍞","Хлеб на закваске","ржаной, пшеничный, цельнозерновой","от 120 ₽"],
+    ["🥖","Багет","хрустящая корка, воздушный мякиш","от 110 ₽"],
+    ["🫓","Чиабатта","на оливковом масле","от 130 ₽"],
+    ["🥨","Крендель","с солью или кунжутом","от 90 ₽"]],
+  pastry: [["🥐","Круассаны","классические, миндальные, с шоколадом","от 140 ₽"],
+    ["🥯","Булочки с корицей","тёплые, с глазурью","от 95 ₽"],
+    ["🥧","Пироги","с яблоком, вишней, капустой, мясом","от 90 ₽/кусок"],
+    ["🧁","Маффины","шоколад, черника, лимон","от 85 ₽"]],
+  cakes: [["🎂","Торты на заказ","к празднику за 2 дня, любая надпись","от 1 800 ₽"],
+    ["🍰","Чизкейк","классический нью-йорк","от 320 ₽/кусок"],
+    ["🍮","Медовик","по бабушкиному рецепту","от 280 ₽/кусок"],
+    ["🍪","Печенье","овсяное, имбирное, с шоколадом","от 60 ₽"]]
+};
+const grid = document.getElementById("goods-grid");
+function renderGoods(key){
+  grid.innerHTML = GOODS[key].map(([e, n, d, p], i) =>
+    `<div class="good" style="animation-delay:${i * 80}ms"><div class="em">${e}</div><b>${n}</b><p>${d}</p><div class="pr">${p}</div></div>`).join("");
+}
+renderGoods("bread");
+document.getElementById("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b));
+  renderGoods(b.dataset.t);
+});
+
+const quotes = [...document.querySelectorAll(".quote")];
+const dots = document.getElementById("dots");
+quotes.forEach((_, i) => dots.insertAdjacentHTML("beforeend", `<button class="${i?"":"on"}" data-i="${i}" aria-label="отзыв ${i+1}"></button>`));
+let qi = 0, qt = setInterval(() => show((qi + 1) % quotes.length), 5000);
+function show(i){
+  qi = i;
+  quotes.forEach((q, j) => q.classList.toggle("on", j === i));
+  dots.querySelectorAll("button").forEach((d, j) => d.classList.toggle("on", j === i));
+}
+dots.addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  clearInterval(qt); show(+b.dataset.i);
+  qt = setInterval(() => show((qi + 1) % quotes.length), 5000);
+});
+
+const sio = new IntersectionObserver(es => es.forEach(e => {
+  if(!e.isIntersecting) return;
+  document.querySelectorAll("nav .links a").forEach(a =>
+    a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+}), {rootMargin: "-40% 0px -55% 0px"});
+["goods","how","order"].forEach(id => sio.observe(document.getElementById(id)));
+</script>
+</body>
+</html>

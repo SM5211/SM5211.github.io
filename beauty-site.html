@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Салон красоты — пример полноценного сайта</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf7f5;--ink:#332e2b;--accent:#9d6b53;--accent2:#b98268;--soft:#f0e6e0;--muted:#96897f;--panel:#fff}
+html{scroll-behavior:smooth}
+body{font:16px/1.7 "Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden}
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;z-index:100}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
+  padding:18px 6vw;z-index:50;transition:.3s}
+nav.scrolled{background:rgba(250,247,245,.96);backdrop-filter:blur(8px);padding:12px 6vw;box-shadow:0 1px 0 var(--soft)}
+nav b{font-size:15px;letter-spacing:.35em;text-transform:uppercase}
+nav .links a{color:var(--ink);text-decoration:none;margin-left:24px;font-size:13px;letter-spacing:.06em;opacity:.75;transition:.2s}
+nav .links a:hover,nav .links a.active{opacity:1;color:var(--accent)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;position:relative}
+.hero-text{display:flex;flex-direction:column;justify-content:center;padding:100px 8vw 60px}
+.hero-text>*{opacity:0;transform:translateY(24px);animation:up .9s cubic-bezier(.2,.7,.3,1) forwards}
+.hero-text small{letter-spacing:.4em;text-transform:uppercase;color:var(--accent);font-size:12px;animation-delay:.1s}
+.hero-text h1{font-size:clamp(38px,5vw,60px);font-weight:300;line-height:1.15;margin:18px 0;animation-delay:.3s}
+.hero-text h1 em{font-style:italic;color:var(--accent)}
+.hero-text p{color:var(--muted);max-width:44ch;animation-delay:.5s}
+.hero-text .cta{animation-delay:.7s;margin-top:30px}
+.hero-img{background:linear-gradient(160deg,#e9d7cc,#d9bfae 55%,#c9a894);display:flex;align-items:center;
+  justify-content:center;font-size:120px;overflow:hidden}
+.hero-img span{will-change:transform}
+@keyframes up{to{opacity:1;transform:none}}
+.btn{display:inline-block;background:var(--ink);color:#fff;padding:15px 38px;text-decoration:none;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:.25s;border:none;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--accent)}
+section{padding:96px 8vw;max-width:1080px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+h2{font-size:34px;font-weight:300;margin-bottom:42px}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;text-align:center}
+.stat{background:var(--panel);border:1px solid var(--soft);border-radius:14px;padding:28px 14px}
+.stat b{font-size:44px;font-weight:300;color:var(--accent);display:block;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.tabs{display:flex;gap:10px;margin-bottom:34px;flex-wrap:wrap}
+.tabs button{background:none;border:1px solid var(--soft);color:var(--muted);padding:10px 24px;border-radius:24px;
+  cursor:pointer;font:inherit;font-size:14px;transition:.25s}
+.tabs button.on{border-color:var(--accent);color:var(--accent);background:#fff}
+.price li{display:flex;justify-content:space-between;align-items:baseline;list-style:none;padding:15px 0;
+  border-bottom:1px solid var(--soft);gap:20px;opacity:0;transform:translateY(12px);animation:up .5s forwards}
+.price li small{color:var(--muted);display:block;font-size:14px}
+.price li b{font-weight:500;white-space:nowrap;color:var(--accent)}
+.masters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px}
+.master{text-align:center;background:var(--panel);border:1px solid var(--soft);border-radius:16px;
+  padding:30px 18px;transition:transform .3s,box-shadow .3s}
+.master:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(157,107,83,.15)}
+.master .ava{width:110px;height:110px;border-radius:50%;margin:0 auto 14px;display:flex;
+  align-items:center;justify-content:center;font-size:46px}
+.master:nth-child(1) .ava{background:#ecdcd2}.master:nth-child(2) .ava{background:#e5d2c4}
+.master:nth-child(3) .ava{background:#ddc7b6}.master:nth-child(4) .ava{background:#e8d8cb}
+.master p{color:var(--muted);font-size:13.5px;margin-top:4px}
+.quotes{position:relative;min-height:150px}
+.quote{position:absolute;inset:0;opacity:0;transition:opacity .8s;text-align:center;padding:0 6vw}
+.quote.on{opacity:1}
+.quote p{font-size:22px;font-style:italic;font-weight:300}
+.quote footer{margin-top:16px;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;font-size:12px}
+.dots{display:flex;gap:10px;justify-content:center;margin-top:24px}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--accent);background:none;cursor:pointer;padding:0}
+.dots button.on{background:var(--accent)}
+.faq details{background:var(--panel);border:1px solid var(--soft);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.faq summary{padding:18px 22px;cursor:pointer;font-weight:500;list-style:none;position:relative}
+.faq summary::after{content:"+";position:absolute;right:22px;color:var(--accent);font-size:22px;transition:.3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 22px 18px;color:var(--muted)}
+.book{background:var(--ink);color:#efe6df;border-radius:20px;padding:54px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;align-items:end}
+.book h3{grid-column:1/-1;font-size:26px;font-weight:300}
+.book label{display:flex;flex-direction:column;gap:8px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#b5a89e}
+.book input,.book select{background:#453d37;border:1px solid #5c534b;color:#fff;padding:13px;font:inherit;border-radius:8px}
+.book input:focus{outline:none;border-color:var(--accent2)}
+.book .btn{background:var(--accent2)}
+.book .btn:hover{background:#fff;color:var(--ink)}
+footer.site{padding:36px;text-align:center;color:var(--muted);font-size:13.5px;border-top:1px solid var(--soft)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-img{min-height:34vh}.book{padding:30px}
+  nav .links a{margin-left:12px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav id="nav"><b>Салон</b><div class="links">
+  <a href="#price">Услуги</a><a href="#team">Мастера</a><a href="#faq">Вопросы</a><a href="#book">Запись</a>
+</div></nav>
+
+<div class="hero">
+  <div class="hero-text">
+    <small>Волосы · Ногти · Уход</small>
+    <h1>Красота начинается<br>с <em>заботы о себе</em></h1>
+    <p>Салон, где вас знают по имени: мастера с опытом от 5 лет, профессиональная косметика и кофе, пока вы преображаетесь.</p>
+    <div class="cta"><a class="btn" href="#book">Записаться онлайн</a></div>
+  </div>
+  <div class="hero-img"><span id="px">💐</span></div>
+</div>
+
+<section>
+  <div class="reveal"><div class="eyebrow">Почему мы</div><h2>Салон в цифрах</h2></div>
+  <div class="stats reveal">
+    <div class="stat"><b data-n="7">0</b><span>лет открыты</span></div>
+    <div class="stat"><b data-n="9">0</b><span>мастеров в команде</span></div>
+    <div class="stat"><b data-n="4800">0</b><span>довольных клиентов</span></div>
+    <div class="stat"><b data-n="98">0</b><span>% возвращаются</span></div>
+  </div>
+</section>
+
+<section id="price">
+  <div class="reveal"><div class="eyebrow">Прайс</div><h2>Услуги и цены</h2></div>
+  <div class="tabs reveal" id="tabs">
+    <button class="on" data-t="hair">Волосы</button>
+    <button data-t="nails">Ногти</button>
+    <button data-t="care">Уход</button>
+  </div>
+  <ul class="price" id="price-list"></ul>
+</section>
+
+<section id="team">
+  <div class="reveal"><div class="eyebrow">Команда</div><h2>Ваши мастера</h2></div>
+  <div class="masters reveal">
+    <div class="master"><div class="ava">✂️</div><b>Стилист-колорист</b><p>сложные окрашивания, стажировки в Москве</p></div>
+    <div class="master"><div class="ava">💅</div><b>Мастер маникюра</b><p>идеальные блики, стерильность</p></div>
+    <div class="master"><div class="ava">🌿</div><b>Косметолог</b><p>уходы и восстановление кожи</p></div>
+    <div class="master"><div class="ava">💄</div><b>Визажист</b><p>макияж на праздник и каждый день</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="reveal"><div class="eyebrow">Отзывы</div><h2>Говорят клиенты</h2></div>
+  <div class="quotes reveal" id="quotes">
+    <div class="quote on"><p>«Хожу два года и ни разу не захотела "изменить" своему мастеру»</p><footer>— Ксения</footer></div>
+    <div class="quote"><p>«Спасли мои волосы после неудачного окрашивания в другом месте»</p><footer>— Алия</footer></div>
+    <div class="quote"><p>«Запись онлайн, кофе, результат — всё на высшем уровне»</p><footer>— Дарья</footer></div>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="reveal"><div class="eyebrow">Вопросы</div><h2>Частые вопросы</h2></div>
+  <div class="reveal">
+    <details><summary>Как подготовиться к сложному окрашиванию?</summary><p>Не мойте голову 1–2 дня и приходите с фото желаемого результата — остальное сделает колорист на бесплатной консультации.</p></details>
+    <details><summary>Можно ли прийти с ребёнком?</summary><p>Конечно! У нас есть детский уголок с раскрасками, а малышей стрижём с 3 лет.</p></details>
+    <details><summary>Что, если мне не понравится результат?</summary><p>Бесплатно скорректируем в течение 7 дней — нам важно, чтобы вы вернулись.</p></details>
+  </div>
+</section>
+
+<section id="book">
+  <form class="book reveal" onsubmit="event.preventDefault();this.innerHTML='<h3 style=\'text-align:center\'>Спасибо! Администратор напишет вам в течение 10 минут 💐</h3>'">
+    <h3>Запишитесь на удобное время</h3>
+    <label>Имя<input required placeholder="Как к вам обращаться"></label>
+    <label>Телефон<input required type="tel" placeholder="+7"></label>
+    <label>Услуга<select><option>Стрижка</option><option>Окрашивание</option><option>Маникюр</option><option>Уход</option></select></label>
+    <button class="btn" type="submit">Записаться</button>
+  </form>
+</section>
+
+<footer class="site">ул. Примерная, 1 · ежедневно 10:00–21:00 · +7 (000) 000-00-00<br><br>
+Пример полноценного сайта с анимациями · цвета, фото и прайс адаптируются под ваш салон</footer>
+
+<script>
+"use strict";
+const prog = document.getElementById("progress");
+addEventListener("scroll", () => {
+  const h = document.documentElement;
+  prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+  document.getElementById("nav").classList.toggle("scrolled", h.scrollTop > 40);
+  const px = document.getElementById("px");
+  const r = px.parentElement.getBoundingClientRect();
+  if(r.bottom > 0 && r.top < innerHeight) px.style.transform = `translateY(${(innerHeight/2 - r.top) * .08}px)`;
+}, {passive: true});
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+}), {threshold: .18});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+const cio = new IntersectionObserver(es => es.forEach(e => {
+  if(!e.isIntersecting) return;
+  cio.unobserve(e.target);
+  const el = e.target, n = +el.dataset.n, t0 = performance.now();
+  const tick = t => { const p = Math.min((t - t0) / 1400, 1);
+    el.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))).toLocaleString("ru");
+    if(p < 1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+}), {threshold: .6});
+document.querySelectorAll(".stat b").forEach(el => cio.observe(el));
+
+const PRICE = {
+  hair: [["Женская стрижка","мытьё, стрижка, укладка","от 1 500 ₽"],["Окрашивание в один тон","краситель премиум","от 3 500 ₽"],
+    ["Сложное окрашивание","шатуш, балаяж, airtouch","от 6 000 ₽"],["Укладка","вечерняя или повседневная","от 1 200 ₽"]],
+  nails: [["Маникюр с покрытием","гель-лак, укрепление","от 1 800 ₽"],["Педикюр","аппаратный, с покрытием","от 2 200 ₽"],
+    ["Дизайн","френч, стемпинг, роспись","от 300 ₽"],["Снятие + уход","бережно, с маслом для кутикулы","от 500 ₽"]],
+  care: [["Уход для волос","ботокс, кератин, восстановление","от 2 500 ₽"],["Чистка лица","ультразвуковая или механическая","от 2 800 ₽"],
+    ["Массаж лица","лимфодренажный, 40 минут","от 1 900 ₽"],["Брови","коррекция и окрашивание","от 900 ₽"]]
+};
+const list = document.getElementById("price-list");
+function renderPrice(key){
+  list.innerHTML = PRICE[key].map(([n, d, p], i) =>
+    `<li style="animation-delay:${i * 70}ms"><span>${n}<small>${d}</small></span><b>${p}</b></li>`).join("");
+}
+renderPrice("hair");
+document.getElementById("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b));
+  renderPrice(b.dataset.t);
+});
+
+const quotes = [...document.querySelectorAll(".quote")];
+const dots = document.getElementById("dots");
+quotes.forEach((_, i) => dots.insertAdjacentHTML("beforeend", `<button class="${i?"":"on"}" data-i="${i}" aria-label="отзыв ${i+1}"></button>`));
+let qi = 0, qt = setInterval(() => show((qi + 1) % quotes.length), 5000);
+function show(i){
+  qi = i;
+  quotes.forEach((q, j) => q.classList.toggle("on", j === i));
+  dots.querySelectorAll("button").forEach((d, j) => d.classList.toggle("on", j === i));
+}
+dots.addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  clearInterval(qt); show(+b.dataset.i);
+  qt = setInterval(() => show((qi + 1) % quotes.length), 5000);
+});
+
+const sio = new IntersectionObserver(es => es.forEach(e => {
+  if(!e.isIntersecting) return;
+  document.querySelectorAll("nav .links a").forEach(a =>
+    a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+}), {rootMargin: "-40% 0px -55% 0px"});
+["price","team","faq","book"].forEach(id => sio.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
